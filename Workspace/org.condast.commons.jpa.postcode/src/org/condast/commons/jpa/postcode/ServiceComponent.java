@@ -5,10 +5,10 @@ import java.util.Map;
 
 import org.condast.commons.data.latlng.LatLng;
 import org.condast.commons.jpa.postcode.model.AddressFillMap;
-import org.condast.commons.na.community.ICommunityQuery;
-import org.condast.commons.na.filler.FillMapException;
-import org.condast.commons.na.filler.IFillMapProvider;
-import org.condast.commons.na.location.CommunityQuery;
+import org.condast.commons.jpa.na.community.ICommunityQuery;
+import org.condast.commons.jpa.na.filler.FillMapException;
+import org.condast.commons.jpa.na.filler.IFillMapProvider;
+import org.condast.commons.jpa.na.location.CommunityQuery;
 
 public class ServiceComponent implements IFillMapProvider<String>{
 

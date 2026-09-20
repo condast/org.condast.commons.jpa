@@ -11,10 +11,10 @@ import java.util.Map.Entry;
 
 import org.condast.commons.Utils;
 import org.condast.commons.data.latlng.LatLng;
-import org.condast.commons.na.community.ICommunityQuery;
-import org.condast.commons.na.filler.FillMapException;
-import org.condast.commons.na.filler.IFillMapProvider;
-import org.condast.commons.na.location.CommunityQuery;
+import org.condast.commons.jpa.na.community.ICommunityQuery;
+import org.condast.commons.jpa.na.filler.FillMapException;
+import org.condast.commons.jpa.na.filler.IFillMapProvider;
+import org.condast.commons.jpa.na.location.CommunityQuery;
 import org.condast.commons.strings.StringStyler;
 import org.condast.commons.strings.StringUtils;
 

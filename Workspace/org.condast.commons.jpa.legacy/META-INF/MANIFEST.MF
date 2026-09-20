@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JPA Legacy Code
+Bundle-SymbolicName: org.condast.commons.jpa.legacy
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Condast
+Automatic-Module-Name: org.condast.commons.jpa.legacy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8

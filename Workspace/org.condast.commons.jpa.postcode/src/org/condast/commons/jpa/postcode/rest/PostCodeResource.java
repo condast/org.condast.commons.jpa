@@ -12,8 +12,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.condast.commons.Utils;
-import org.condast.commons.na.community.CommunityResource;
-import org.condast.commons.na.location.CommunityQuery;
+import org.condast.commons.jpa.na.community.CommunityResource;
+import org.condast.commons.jpa.na.location.CommunityQuery;
 import org.condast.commons.strings.StringUtils;
 
 // Plain old Java Object it does not extend as class or implements
