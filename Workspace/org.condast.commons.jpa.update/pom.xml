@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+	<properties>
+		<update-site>${project-root}/${bundle-name}/target/site/plugins</update-site>
+	</properties>
+
+  <!-- Link to the parent pom -->
+  <parent>
+    <artifactId>org.condast.commons.jpa.parent</artifactId>
+    <groupId>org.condast.commons.jpa</groupId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../org.condast.commons.jpa.project</relativePath>
+  </parent>
+
+	<artifactId>org.condast.commons.jpa.update</artifactId>
+   <packaging>eclipse-repository</packaging>
+</project> 

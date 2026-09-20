@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.condast.commons.feature"
+      label="Feature"
+      version="1.0.0.qualifier">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="com.google.gson"/>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.rap.rwt" version="3.0.0" match="compatible"/>
+      <import plugin="org.eclipse.rap.filedialog"/>
+      <import plugin="org.eclipse.equinox.http.registry"/>
+      <import plugin="javax.ws.rs-api"/>
+      <import plugin="org.eclipse.equinox.preferences"/>
+      <import plugin="org.apache.felix.scr"/>
+      <import plugin="org.eclipse.core.runtime" version="3.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.commons.commons-codec"/>
+      <import plugin="org.eclipse.equinox.security"/>
+      <import plugin="org.eclipse.rap.jface"/>
+      <import plugin="org.freemarker.freemarker"/>
+      <import plugin="org.eclipse.core.commands"/>
+      <import plugin="org.eclipse.rap.nebula.widgets.richtext"/>
+   </requires>
+
+</feature>
