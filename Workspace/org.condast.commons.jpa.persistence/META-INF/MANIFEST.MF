@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tools for Persistence
+Bundle-SymbolicName: org.condast.commons.jpa.persistence
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Condast
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: javax.persistence;version="[2.0.0,3.0.0)",
+ javax.servlet.http;version="[4.0.0,5.0.0)",
+ org.condast.commons,
+ org.condast.commons.io,
+ org.condast.commons.service,
+ org.osgi.framework;version="1.3.0"
+Bundle-ActivationPolicy: lazy
+Export-Package: org.condast.commons.persistence.clone,
+ org.condast.commons.persistence.connector,
+ org.condast.commons.persistence.core,
+ org.condast.commons.persistence.def,
+ org.condast.commons.persistence.service,
+ org.condast.commons.persistence.session
+Automatic-Module-Name: org.condast.commons.persistence

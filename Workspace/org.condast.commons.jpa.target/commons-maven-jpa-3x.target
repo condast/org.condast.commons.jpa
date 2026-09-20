@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.8"?>
-<target name="commons-maven-jpa-3x.target" sequenceNumber="254">
+<target name="commons-maven-JPA-3x.target" sequenceNumber="254">
 <locations>
 	<location path="P:\Virgo\virgo-jetty-server-3.7.4.POM\repository\jpa" type="Directory"/>
 	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
@@ -35,12 +35,11 @@
 			    <version>5.1.49</version>
 			    <scope>compile</scope>
 			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/javax.activation/activation -->
 			<dependency>
-			    <groupId>javax.activation</groupId>
-			    <artifactId>javax.activation-api</artifactId>
-			    <version>1.2.0</version>
-			    <scope>compile</scope>
+				<groupId>com.sun.activation</groupId>
+				<artifactId>javax.activation</artifactId>
+				<version>1.2.0</version>
+				<type>jar</type>
 			</dependency>
 			<!-- Source: https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
 			<dependency>
@@ -79,6 +78,41 @@
 				<artifactId>freemarker</artifactId>
 				<version>2.3.34</version>
 				<type>jar</type>
+			</dependency>
+			<!-- Source: https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client -->
+			<dependency>
+			    <groupId>org.glassfish.jersey.core</groupId>
+			    <artifactId>jersey-client</artifactId>
+			    <version>2.48</version>
+			    <scope>compile</scope>
+			</dependency>
+			<!-- Source: https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-common -->
+			<dependency>
+			    <groupId>org.glassfish.jersey.core</groupId>
+			    <artifactId>jersey-common</artifactId>
+			    <version>2.48</version>
+			    <scope>compile</scope>
+			</dependency>
+			<!-- Source: https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet-core -->
+			<dependency>
+			    <groupId>org.glassfish.jersey.containers</groupId>
+			    <artifactId>jersey-container-servlet-core</artifactId>
+			    <version>2.48</version>
+			    <scope>compile</scope>
+			</dependency>
+			<!-- Source: https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->
+			<dependency>
+			    <groupId>org.glassfish.jersey.core</groupId>
+			    <artifactId>jersey-server</artifactId>
+			    <version>2.48</version>
+			    <scope>compile</scope>
+			</dependency>
+			<!-- Source: https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet -->
+			<dependency>
+			    <groupId>org.glassfish.jersey.containers</groupId>
+			    <artifactId>jersey-container-servlet</artifactId>
+			    <version>2.48</version>
+			    <scope>compile</scope>
 			</dependency>
 			<!-- Source: https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa -->
 			<dependency>
@@ -313,8 +347,6 @@
 		<plugin id="org.osgi.service.jndi.source"/>
 		<plugin id="org.osgi.service.jpa"/>
 		<plugin id="org.osgi.service.jpa.source"/>
-		<plugin id="javax.activation-api"/>
-		<plugin id="javax.activation-api.source"/>
 		<plugin id="wrapped.javax.servlet.servlet-api"/>
 		<plugin id="wrapped.javax.servlet.servlet-api.source"/>
 		<plugin id="org.eclipse.persistence.jpa"/>
@@ -323,6 +355,18 @@
 		<plugin id="javax.persistence-api.source"/>
 		<plugin id="org.apache.commons.commons-logging"/>
 		<plugin id="org.apache.commons.commons-logging.source"/>
+		<plugin id="org.glassfish.jersey.core.jersey-client.source"/>
+		<plugin id="org.glassfish.jersey.core.jersey-client"/>
+		<plugin id="org.glassfish.jersey.core.jersey-common.source"/>
+		<plugin id="org.glassfish.jersey.core.jersey-common"/>
+		<plugin id="org.glassfish.jersey.core.jersey-server.source"/>
+		<plugin id="org.glassfish.jersey.core.jersey-server"/>
+		<plugin id="org.glassfish.jersey.containers.jersey-container-servlet-core"/>
+		<plugin id="org.glassfish.jersey.containers.jersey-container-servlet-core.source"/>
+		<plugin id="com.sun.activation.javax.activation"/>
+		<plugin id="com.sun.activation.javax.activation.source"/>
+		<plugin id="org.glassfish.jersey.containers.jersey-container-servlet.source"/>
+		<plugin id="org.glassfish.jersey.containers.jersey-container-servlet"/>
 	</includeBundles>
 	<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21"/>
 </target>
