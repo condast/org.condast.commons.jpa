@@ -25,10 +25,12 @@
 		<tycho.version>5.0.4</tycho.version>			
 		<bundle-name>org.condast.commons.jpa</bundle-name>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<build-name>RAP3X</build-name>
 		<generics>P:/GitHub/</generics>
-		<project-root>P:/GitHub/org.condast.commons.jpa</project-root>
-		<update-site>${project-root}/${bundle-name}.update/target/site/plugins</update-site>
-		<release-dir>P:/Releases</release-dir>
+        <maven.build.timestamp.format>yyyy-MM-dd-HHmmss</maven.build.timestamp.format>
+		<project-root>P:/GitHub/${bundle-name}</project-root>
+		<update-site>${project-root}/Workspace/${bundle-name}.update/target/repository/plugins</update-site>
+		<release-dir>P:/Releases/${build-name}/${bundle-name}</release-dir>
 	</properties>
 
 	<distributionManagement>
@@ -40,12 +42,28 @@
 
 	<modules>
 		<module>../org.condast.commons.jpa.target</module>
+		<module>../org.condast.commons.jpa.persistence</module>
+		<module>../org.condast.commons.jpa.na</module>
+		<module>../org.condast.commons.jpa.ui.na</module>
+		<module>../org.condast.commons.jpa.authentication</module>
+		<module>../org.condast.commons.jpa.authentication.ui</module>
 		<module>../org.condast.commons.jpa.postcode</module>
+		<module>../org.condast.commons.jpa.google.geo</module>
+		<!-- <module>../org.condast.commons.jpa.google.geo.ui</module> -->
 		<module>../org.condast.commons.jpa.feature</module>
 		<module>../org.condast.commons.jpa.update</module>
 	</modules>
 
 	<build>
+ 	    <pluginManagement>
+	       <plugins>
+	         <plugin>
+	           <groupId>org.eclipse.tycho</groupId>
+	           <artifactId>tycho-p2-director-plugin</artifactId>
+	           <version>${tycho.version}</version>
+	         </plugin>
+	       </plugins>
+	    </pluginManagement>
         <!-- To use the plugin goals in your POM or parent POM -->
         <plugins>
  			<plugin>
@@ -64,7 +82,7 @@
 					<target>
 						<artifact>
 							<groupId>org.condast.commons.jpa</groupId>
-							<artifactId>commons.jpa.target</artifactId>
+							<artifactId>org.condast.commons.jpa.target</artifactId>
 							<version>${project.version}</version>
 						</artifact>
 					</target>
@@ -103,9 +121,10 @@
 			 <version>${tycho.version}</version>
 			  <configuration>
 			    <skipArchive>true</skipArchive>
-			    <includeAllDependencies>true</includeAllDependencies>
+			    <includeAllDependencies>false</includeAllDependencies>
 			  </configuration>
 			</plugin>
+			<!--
 			<plugin>
   				<groupId>org.eclipse.tycho</groupId>
   				<artifactId>tycho-packaging-plugin</artifactId>
@@ -124,7 +143,8 @@
 			            </goals>
         		   </execution>
         		</executions>
-	      	</plugin>      	
+	      	</plugin>  
+	      	-->    	
             <plugin>
                	<groupId>org.apache.maven.plugins</groupId>
             	<artifactId>maven-resources-plugin</artifactId>
@@ -137,14 +157,15 @@
           					<goal>copy-resources</goal>
        					</goals>
     					<configuration>
-        					<outputDirectory>${release-dir}/${maven.build.timestamp}/${project-root}</outputDirectory>
+        					<overwrite>true</overwrite>
+        					<outputDirectory>${release-dir}/${maven.build.timestamp}</outputDirectory>
             					<resources>
                 					<resource>
                 						<directory>${update-site}</directory>
                 					</resource>
                 				</resources>
             			</configuration>
-        			</execution>
+       			    </execution>
     			</executions>
            	</plugin>
   		</plugins>

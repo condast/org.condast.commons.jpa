@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.8"?>
-<target name="commons-maven-JPA-3x.target" sequenceNumber="254">
+<target name="commons-maven-jpa-3x.target" sequenceNumber="254">
 <locations>
-	<location path="P:\Virgo\virgo-jetty-server-3.7.4.POM\repository\jpa" type="Directory"/>
 	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 		<repository location="https://download.eclipse.org/rt/rap/3.29"/>
 		<unit id="org.eclipse.rap.equinox.target.feature.feature.group" version="3.29.0.20240605-1200"/>
 	</location>
+	<location path="P:\Releases\gemini.dbaccess\gemini.dbaccess\2026-09-23-094427" type="Directory"/>
+	<location path="P:\Releases\org.eclipse.gemini.jpa\EE8\2026-09-23-091958" type="Directory"/>
 	<location includeDependencyDepth="none" includeDependencyScopes="compile" includeSource="true" missingManifest="generate" type="Maven">
 		<dependencies>
 			<dependency>
@@ -16,55 +17,87 @@
 				<type>jar</type>
 			</dependency>
 			<dependency>
-				<groupId>commons-codec</groupId>
-				<artifactId>commons-codec</artifactId>
-				<version>1.22.0</version>
-				<type>jar</type>
-			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/commons-logging/commons-logging -->
-			<dependency>
-			    <groupId>commons-logging</groupId>
-			    <artifactId>commons-logging</artifactId>
-			    <version>1.4.0</version>
-			    <scope>compile</scope>
-			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
-			<dependency>
-			    <groupId>mysql</groupId>
-			    <artifactId>mysql-connector-java</artifactId>
-			    <version>5.1.49</version>
-			    <scope>compile</scope>
-			</dependency>
-			<dependency>
 				<groupId>com.sun.activation</groupId>
 				<artifactId>javax.activation</artifactId>
 				<version>1.2.0</version>
 				<type>jar</type>
 			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
 			<dependency>
-			    <groupId>javax.xml.bind</groupId>
-			    <artifactId>jaxb-api</artifactId>
-			    <version>2.4.0-b180830.0359</version>
-			    <scope>compile</scope>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>1.22.0</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>commons-logging</groupId>
+				<artifactId>commons-logging</artifactId>
+				<version>1.4.0</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>javax.annotation</groupId>
+				<artifactId>javax.annotation-api</artifactId>
+				<version>1.3.2</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>1</version>
+				<type>jar</type>
 			</dependency>
 			<dependency>
 				<groupId>javax.persistence</groupId>
 				<artifactId>javax.persistence-api</artifactId>
 				<version>2.2</version>
-				<scope>compile</scope>
+				<type>jar</type>
 			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
 			<dependency>
-			    <groupId>javax.servlet</groupId>
-			    <artifactId>servlet-api</artifactId>
-			    <version>2.5</version>
-			    <scope>provided</scope>
+				<groupId>javax.servlet</groupId>
+				<artifactId>servlet-api</artifactId>
+				<version>2.5</version>
+				<type>jar</type>
 			</dependency>
 			<dependency>
 				<groupId>javax.ws.rs</groupId>
 				<artifactId>javax.ws.rs-api</artifactId>
 				<version>2.1.1</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>javax.xml.bind</groupId>
+				<artifactId>jaxb-api</artifactId>
+				<version>2.4.0-b180830.0359</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>5.1.49</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>org.eclipse.persistence.antlr</artifactId>
+				<version>2.7.16</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>org.eclipse.persistence.asm</artifactId>
+				<version>9.9.0</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>org.eclipse.persistence.core</artifactId>
+				<version>5.0.0</version>
+				<type>jar</type>
+			</dependency>
+			<dependency>
+				<groupId>org.eclipse.persistence</groupId>
+				<artifactId>org.eclipse.persistence.jpa</artifactId>
+				<version>2.4.2</version>
 				<type>jar</type>
 			</dependency>
 			<dependency>
@@ -79,39 +112,35 @@
 				<version>2.3.34</version>
 				<type>jar</type>
 			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client -->
 			<dependency>
-			    <groupId>org.glassfish.jersey.core</groupId>
-			    <artifactId>jersey-client</artifactId>
-			    <version>2.48</version>
-			    <scope>compile</scope>
+				<groupId>org.glassfish.jersey.containers</groupId>
+				<artifactId>jersey-container-servlet-core</artifactId>
+				<version>2.48</version>
+				<type>jar</type>
 			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-common -->
 			<dependency>
-			    <groupId>org.glassfish.jersey.core</groupId>
-			    <artifactId>jersey-common</artifactId>
-			    <version>2.48</version>
-			    <scope>compile</scope>
+				<groupId>org.glassfish.jersey.core</groupId>
+				<artifactId>jersey-client</artifactId>
+				<version>2.48</version>
+				<type>jar</type>
 			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/org.glassfish.jersey.containers/jersey-container-servlet-core -->
 			<dependency>
-			    <groupId>org.glassfish.jersey.containers</groupId>
-			    <artifactId>jersey-container-servlet-core</artifactId>
-			    <version>2.48</version>
-			    <scope>compile</scope>
+				<groupId>org.glassfish.jersey.core</groupId>
+				<artifactId>jersey-common</artifactId>
+				<version>2.48</version>
+				<type>jar</type>
 			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-server -->
 			<dependency>
-			    <groupId>org.glassfish.jersey.core</groupId>
-			    <artifactId>jersey-server</artifactId>
-			    <version>2.48</version>
-			    <scope>compile</scope>
+				<groupId>org.glassfish.jersey.core</groupId>
+				<artifactId>jersey-server</artifactId>
+				<version>2.48</version>
+				<type>jar</type>
 			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/org.eclipse.persistence/org.eclipse.persistence.jpa -->
+			<!-- Source: https://mvnrepository.com/artifact/org.glassfish.hk2/osgi-resource-locator -->
 			<dependency>
-			    <groupId>org.eclipse.persistence</groupId>
-			    <artifactId>org.eclipse.persistence.jpa</artifactId>
-			    <version>2.4.2</version>
+			    <groupId>org.glassfish.hk2</groupId>
+			    <artifactId>osgi-resource-locator</artifactId>
+			    <version>1.0.4</version>
 			    <scope>compile</scope>
 			</dependency>
 			<dependency>
@@ -132,26 +161,23 @@
 				<version>1.2.2</version>
 				<type>jar</type>
 			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/org.osgi/org.osgi.service.jdbc -->
 			<dependency>
-			    <groupId>org.osgi</groupId>
-			    <artifactId>org.osgi.service.jdbc</artifactId>
-			    <version>1.1.0</version>
-			    <scope>provided</scope>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.service.jdbc</artifactId>
+				<version>1.1.0</version>
+				<type>jar</type>
 			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/org.osgi/org.osgi.service.jndi -->
 			<dependency>
-			    <groupId>org.osgi</groupId>
-			    <artifactId>org.osgi.service.jndi</artifactId>
-			    <version>1.0.0</version>
-			    <scope>compile</scope>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.service.jndi</artifactId>
+				<version>1.0.0</version>
+				<type>jar</type>
 			</dependency>
-			<!-- Source: https://mvnrepository.com/artifact/org.osgi/org.osgi.service.jpa -->
 			<dependency>
-			    <groupId>org.osgi</groupId>
-			    <artifactId>org.osgi.service.jpa</artifactId>
-			    <version>1.0.0</version>
-			    <scope>compile</scope>
+				<groupId>org.osgi</groupId>
+				<artifactId>org.osgi.service.jpa</artifactId>
+				<version>1.0.0</version>
+				<type>jar</type>
 			</dependency>
 		</dependencies>
 	</location>
@@ -358,6 +384,21 @@
 		<plugin id="org.glassfish.jersey.containers.jersey-container-servlet-core.source"/>
 		<plugin id="com.sun.activation.javax.activation"/>
 		<plugin id="com.sun.activation.javax.activation.source"/>
+		<plugin id="org.eclipse.persistence.antlr.source"/>
+		<plugin id="org.eclipse.persistence.antlr"/>
+		<plugin id="org.eclipse.persistence.asm.source"/>
+		<plugin id="org.eclipse.persistence.asm"/>
+		<plugin id="org.eclipse.persistence.core.source"/>
+		<plugin id="org.eclipse.persistence.core"/>
+		<plugin id="org.eclipse.persistence.jpa.source"/>
+		<plugin id="javax.annotation-api"/>
+		<plugin id="javax.annotation-api.source"/>
+		<plugin id="org.eclipse.persistence.jpa"/>
+		<plugin id="org.osgi.service.component" version="1.5.1.202212101352"/>
+		<plugin id="org.osgi.service.component.source" version="1.5.1.202212101352"/>
+		<plugin id="org.osgi.service.jndi" version="1.0.0.201505202023"/>
+		<plugin id="wrapped.javax.inject.javax.inject.source"/>
+		<plugin id="wrapped.javax.inject.javax.inject"/>
 	</includeBundles>
 	<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21"/>
 </target>
