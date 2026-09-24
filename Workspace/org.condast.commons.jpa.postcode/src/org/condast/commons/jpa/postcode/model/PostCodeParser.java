@@ -1,12 +1,20 @@
 package org.condast.commons.jpa.postcode.model;
 
+import com.google.gson.Gson;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.condast.commons.Utils;
+import org.apache.http.HttpEntity;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.condast.commons.strings.PostCodeUtils;
 import org.condast.commons.strings.StringUtils;
 
@@ -18,7 +26,6 @@ public class PostCodeParser {
 
 	@SuppressWarnings("unchecked")
 	public static Map<String, String> findAddresses( String postcode, int number, String numberExtension ) throws Exception{
-		/*
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
 		credsProvider.setCredentials( AuthScope.ANY, new UsernamePasswordCredentials( S_API_KEY, S_SECRET_KEY ));
 		
@@ -42,7 +49,6 @@ public class PostCodeParser {
 		    response.close();
 		    System.out.println( obj.toString() );
 		}
-		*/
 		return null;//obj;
 	}
 	
