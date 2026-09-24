@@ -168,13 +168,6 @@
         <setEntry value="org.condast.js.commons@default:default"/>
         <setEntry value="org.condast.js.push@default:default"/>
         <setEntry value="org.condast.js.react@default:default"/>
-        <setEntry value="org.eclipse.gemini.dbaccess.derby@default:default"/>
-        <setEntry value="org.eclipse.gemini.dbaccess.h2@default:default"/>
-        <setEntry value="org.eclipse.gemini.dbaccess.hsqldb@default:default"/>
-        <setEntry value="org.eclipse.gemini.dbaccess.mysql@default:default"/>
-        <setEntry value="org.eclipse.gemini.dbaccess.postgresql@default:default"/>
-        <setEntry value="org.eclipse.gemini.dbaccess.samples@default:default"/>
-        <setEntry value="org.eclipse.gemini.dbaccess.test@default:default"/>
         <setEntry value="org.eclipse.gemini.dbaccess.util@default:default"/>
         <setEntry value="org.eclipse.gemini.jpa.samples@default:default"/>
         <setEntry value="org.eclipse.gemini.jpa.test.embeddedjdbc@default:default"/>
@@ -186,13 +179,9 @@
         <setEntry value="org.eclipse.gemini.jpa.test.xmlmappedpunit@default:default"/>
         <setEntry value="org.eclipse.gemini.jpa.tests@default:default"/>
         <setEntry value="org.eclipse.gemini.jpa@default:default"/>
-        <setEntry value="org.h2@default:default"/>
-        <setEntry value="org.hsqldb@default:default"/>
         <setEntry value="org.javax.mail@default:default"/>
         <setEntry value="org.openlayer.map@default:default"/>
-        <setEntry value="org.postgresql.jdbc-java6@default:default"/>
-        <setEntry value="org.postgresql.jdbc-java7@default:default"/>
-        <setEntry value="org.postgresql.jdbc-java8@default:default"/>
+        <setEntry value="osgi.enterprise@default:default"/>
         <setEntry value="test.condast.commons.data@default:default"/>
         <setEntry value="test.condast.commons.jinput@default:default"/>
     </setAttribute>

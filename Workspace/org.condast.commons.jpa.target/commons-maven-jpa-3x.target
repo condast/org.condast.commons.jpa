@@ -68,6 +68,13 @@
 				<version>2.4.0-b180830.0359</version>
 				<type>jar</type>
 			</dependency>
+			<!-- Source: https://mvnrepository.com/artifact/javax.transaction/jta -->
+			<dependency>
+			    <groupId>javax.transaction</groupId>
+			    <artifactId>jta</artifactId>
+			    <version>1.1</version>
+			    <scope>compile</scope>
+			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
@@ -230,36 +237,6 @@
 				<version>1.0.0</version>
 				<type>jar</type>
 			</dependency>
-			<dependency>
-				<groupId>org.ow2.asm</groupId>
-				<artifactId>asm-analysis</artifactId>
-				<version>9.9.1</version>
-				<type>jar</type>
-			</dependency>
-			<dependency>
-				<groupId>org.ow2.asm</groupId>
-				<artifactId>asm-commons</artifactId>
-				<version>9.9.1</version>
-				<type>jar</type>
-			</dependency>
-			<dependency>
-				<groupId>org.ow2.asm</groupId>
-				<artifactId>asm-tree</artifactId>
-				<version>9.9.1</version>
-				<type>jar</type>
-			</dependency>
-			<dependency>
-				<groupId>org.ow2.asm</groupId>
-				<artifactId>asm-util</artifactId>
-				<version>9.9.1</version>
-				<type>jar</type>
-			</dependency>
-			<dependency>
-				<groupId>org.ow2.asm</groupId>
-				<artifactId>asm</artifactId>
-				<version>9.9.1</version>
-				<type>jar</type>
-			</dependency>
 		</dependencies>
 	</location>
 </locations>
@@ -392,11 +369,11 @@
 		<plugin id="org.hamcrest.core.source"/>
 		<plugin id="org.junit"/>
 		<plugin id="org.junit.source"/>
-		<plugin id="org.objectweb.asm" version="9.9.1"/>
-		<plugin id="org.objectweb.asm.commons" version="9.9.1"/>
-		<plugin id="org.objectweb.asm.tree" version="9.9.1"/>
-		<plugin id="org.objectweb.asm.tree.analysis" version="9.9.1"/>
-		<plugin id="org.objectweb.asm.util" version="9.9.1"/>
+		<plugin id="org.objectweb.asm"/>
+		<plugin id="org.objectweb.asm.commons"/>
+		<plugin id="org.objectweb.asm.tree"/>
+		<plugin id="org.objectweb.asm.tree.analysis"/>
+		<plugin id="org.objectweb.asm.util"/>
 		<plugin id="org.osgi.service.cm"/>
 		<plugin id="org.osgi.service.cm.source"/>
 		<plugin id="org.osgi.service.component"/>
@@ -473,11 +450,6 @@
 		<plugin id="wrapped.javax.inject.javax.inject"/>
 		<plugin id="javax.persistence"/>
 		<plugin id="javax.persistence.source"/>
-		<plugin id="org.objectweb.asm.commons.source"/>
-		<plugin id="org.objectweb.asm.source"/>
-		<plugin id="org.objectweb.asm.tree.analysis.source"/>
-		<plugin id="org.objectweb.asm.tree.source"/>
-		<plugin id="org.objectweb.asm.util.source"/>
 		<plugin id="org.opentest4j.source"/>
 		<plugin id="org.opentest4j"/>
 		<plugin id="org.osgi.namespace.extender.source"/>
@@ -487,6 +459,8 @@
 		<plugin id="wrapped.junit.junit"/>
 		<plugin id="org.glassfish.hk2.osgi-resource-locator"/>
 		<plugin id="org.glassfish.hk2.osgi-resource-locator.source"/>
+		<plugin id="wrapped.javax.transaction.jta"/>
+		<plugin id="wrapped.javax.transaction.jta.source"/>
 	</includeBundles>
 	<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21"/>
 </target>
