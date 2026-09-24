@@ -108,11 +108,11 @@
         <setEntry value="org.hamcrest.core@default:default"/>
         <setEntry value="org.hamcrest@default:default"/>
         <setEntry value="org.junit@default:default"/>
-        <setEntry value="org.objectweb.asm*9.9.1@default:default"/>
-        <setEntry value="org.objectweb.asm.commons*9.9.1@default:default"/>
-        <setEntry value="org.objectweb.asm.tree*9.9.1@default:default"/>
-        <setEntry value="org.objectweb.asm.tree.analysis*9.9.1@default:default"/>
-        <setEntry value="org.objectweb.asm.util*9.9.1@default:default"/>
+        <setEntry value="org.objectweb.asm.commons@default:default"/>
+        <setEntry value="org.objectweb.asm.tree.analysis@default:default"/>
+        <setEntry value="org.objectweb.asm.tree@default:default"/>
+        <setEntry value="org.objectweb.asm.util@default:default"/>
+        <setEntry value="org.objectweb.asm@default:default"/>
         <setEntry value="org.osgi.service.cm@default:default"/>
         <setEntry value="org.osgi.service.component.annotations@default:default"/>
         <setEntry value="org.osgi.service.component@default:default"/>
@@ -193,7 +193,6 @@
         <setEntry value="org.postgresql.jdbc-java6@default:default"/>
         <setEntry value="org.postgresql.jdbc-java7@default:default"/>
         <setEntry value="org.postgresql.jdbc-java8@default:default"/>
-        <setEntry value="osgi.enterprise@default:default"/>
         <setEntry value="test.condast.commons.data@default:default"/>
         <setEntry value="test.condast.commons.jinput@default:default"/>
     </setAttribute>
