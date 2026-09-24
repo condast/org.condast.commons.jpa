@@ -1,7 +1,7 @@
 package org.condast.commons.jpa.postcode;
 
-import javax.servlet.Servlet;
 import javax.ws.rs.ApplicationPath;
+import javax.servlet.Servlet;
 
 import org.condast.commons.jpa.postcode.rest.PostCodeResource;
 import org.condast.commons.messaging.http.AbstractServletWrapper;
