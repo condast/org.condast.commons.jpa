@@ -2,7 +2,7 @@ package org.condast.commons.persistence.service;
 
 import java.util.Map;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 
 public class EntityManagerFactoryService extends FactoryService<EntityManagerFactory> {
 

@@ -3,7 +3,7 @@ package org.condast.commons.persistence.service;
 import java.util.Collection;
 import java.util.Map;
 
-import javax.persistence.Query;
+import jakarta.persistence.Query;
 
 import org.condast.commons.persistence.clone.ICloneSupport;
 

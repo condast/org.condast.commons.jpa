@@ -5,12 +5,10 @@ Bundle-SymbolicName: org.condast.commons.jpa.ui.na
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Condast NAW UI Package
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Import-Package: javax.persistence;version="[1.0.0,3.0.0)",
- org.condast.commons,
+Import-Package: org.condast.commons,
  org.condast.commons.data.util,
  org.condast.commons.date,
  org.condast.commons.i18n,
- org.condast.commons.jpa.authentication.core,
  org.condast.commons.jpa.na.address,
  org.condast.commons.jpa.na.data,
  org.condast.commons.jpa.na.model,

@@ -11,7 +11,7 @@
  *******************************************************************************/
 package org.condast.commons.persistence.service;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 
 import org.condast.commons.service.IPersistencyServiceListener;
 

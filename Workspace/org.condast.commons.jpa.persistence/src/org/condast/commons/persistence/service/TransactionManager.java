@@ -2,7 +2,7 @@ package org.condast.commons.persistence.service;
 
 import java.io.Closeable;
 
-import javax.persistence.EntityManager;
+import jakarta.persistence.EntityManager;
 import org.condast.commons.io.IOUtils;
 
 public class TransactionManager implements Closeable{
