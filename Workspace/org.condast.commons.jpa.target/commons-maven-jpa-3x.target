@@ -292,8 +292,6 @@
 		<plugin id="org.eclipse.equinox.event.source"/>
 		<plugin id="org.eclipse.equinox.http.jetty"/>
 		<plugin id="org.eclipse.equinox.http.jetty.source"/>
-		<plugin id="org.eclipse.equinox.http.registry"/>
-		<plugin id="org.eclipse.equinox.http.registry.source"/>
 		<plugin id="org.eclipse.equinox.http.service.api"/>
 		<plugin id="org.eclipse.equinox.http.servlet"/>
 		<plugin id="org.eclipse.equinox.http.servlet.source"/>
