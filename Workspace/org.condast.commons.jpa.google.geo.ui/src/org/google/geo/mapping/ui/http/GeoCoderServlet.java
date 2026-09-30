@@ -20,7 +20,7 @@ import org.osgi.service.component.annotations.ServiceScope;
 
 @Component(service = Servlet.class, 
 scope=ServiceScope.PROTOTYPE,
-property= "osgi.http.whiteboard.servlet.pattern=/indymo")
+property= "osgi.http.whiteboard.servlet.pattern=/geo")
 public class GeoCoderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -30,14 +30,9 @@ public class GeoCoderServlet extends HttpServlet {
 	
 	private GeocoderSession session;
 	
-	@Override
-	public void init() throws ServletException {
-		super.init();
-	}
 
-	@Override
-	public void destroy() {
-			super.destroy();
+	public GeoCoderServlet() {
+		super();
 	}
 
 	@Override
