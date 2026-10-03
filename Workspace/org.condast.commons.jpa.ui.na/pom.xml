@@ -17,13 +17,13 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
 
   <!-- Link to the parent pom -->
   <parent>
-    <artifactId>org.condast.commons.parent</artifactId>
-    <groupId>org.condast.commons</groupId>
+    <artifactId>org.condast.commons.jpa.parent</artifactId>
+    <groupId>org.condast.commons.jpa</groupId>
     <version>1.0.0-SNAPSHOT</version>
-    <relativePath>../org.condast.commons.project</relativePath>
+    <relativePath>../org.condast.commons.jpa.project</relativePath>
   </parent>
 
   <packaging>eclipse-plugin</packaging>
 
-  <artifactId>org.condast.commons.ui.na</artifactId>
+  <artifactId>org.condast.commons.jpa.ui.na</artifactId>
 </project>

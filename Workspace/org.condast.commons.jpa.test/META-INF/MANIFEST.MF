@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Test Support for Plugins
+Bundle-SymbolicName: org.condast.commons.jpa.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Condast
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: javax.ws.rs;version="[2.1.0,3.0.0)",
+ javax.ws.rs.core;version="[2.1.0,3.0.0)",
+ org.condast.commons,
+ org.condast.commons.jpa.messaging,
+ org.condast.commons.preferences.xml,
+ org.condast.commons.strings,
+ org.condast.commons.ui.widgets.xml,
+ org.condast.commons.xml,
+ org.osgi.framework;version="1.5.0"
+Export-Package: org.condast.commons.jpa.test.core,
+ org.condast.commons.jpa.test.core.service,
+ org.condast.commons.jpa.test.xml
+Automatic-Module-Name: org.condast.commons.test

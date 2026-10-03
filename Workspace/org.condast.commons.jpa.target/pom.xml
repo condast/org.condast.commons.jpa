@@ -23,5 +23,5 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   </parent>
 
   <packaging>eclipse-target-definition</packaging>
-  <artifactId>org.condast.commons.jpa.target</artifactId>
+  <artifactId>commons-jpa.target</artifactId>
 </project>
