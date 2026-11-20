@@ -7,7 +7,7 @@ import java.util.Map;
 import org.condast.commons.jpa.na.address.AddressException;
 import org.condast.commons.jpa.na.model.IAddress.AddressTypes;
 import org.condast.commons.jpa.na.questionaire.IQuestionnaire;
-import org.condast.commons.persistence.service.IPersistencyController;
+import org.condast.commons.jpa.persistence.service.IPersistencyController;
 
 public interface IApplicationPersonController extends IPersistencyController<IApplicationPerson, IApplication>{
 

@@ -67,11 +67,6 @@ public class PushClient extends AbstractHttpRequest<PushClient.Requests>{
 	}
 
 	@Override
-	protected void sendGet(Requests request, Map<String, String> parameters) throws IOException {
-		super.sendGet(request, parameters);
-	}
-
-	@Override
 	protected String onHandleResponse(ResponseEvent<Requests> event) throws IOException {
 		Requests request = event.getRequest();
 		switch( request ) {

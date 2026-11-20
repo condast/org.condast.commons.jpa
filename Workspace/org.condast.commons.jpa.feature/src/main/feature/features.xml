@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><features name="org.condast.commons.jpa.feature.karaf" xmlns="http://karaf.apache.org/xmlns/features/v1.4.0">
+    <feature name="org.condast.commons.jpa.feature" version="1.0.0-SNAPSHOT">
+        <bundle>mvn:org.condast.commons.jpa/org.condast.commons.jpa.authentication/1.0.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.condast.commons.jpa/org.condast.commons.jpa.authentication.ui/1.0.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.condast.commons.jpa/org.condast.commons.jpa.google.geo/1.0.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.condast.commons.jpa/org.condast.commons.jpa.na/1.0.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.condast.commons.jpa/org.condast.commons.jpa.persistence/1.0.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.condast.commons.jpa/org.condast.commons.jpa.postcode/1.0.0-SNAPSHOT</bundle>
+        <bundle>mvn:org.condast.commons.jpa/org.condast.commons.jpa.ui.na/1.0.0-SNAPSHOT</bundle>
+    </feature>
+</features>

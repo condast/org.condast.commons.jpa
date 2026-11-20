@@ -2,14 +2,12 @@ package org.condast.commons.jpa.authentication.core;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.condast.commons.data.user.ILoginUser;
-import org.condast.commons.jpa.authentication.core.IAuthenticationListener.AuthenticationEvents;
-import org.condast.commons.persistence.service.AbstractPersistencyService;
+import org.condast.commons.data.util.LoginData;
+import org.condast.commons.jpa.persistence.service.AbstractPersistencyService;
 
 public abstract class AbstractLoginProvider extends AbstractPersistencyService implements ILoginProvider{
 
@@ -41,17 +39,17 @@ public abstract class AbstractLoginProvider extends AbstractPersistencyService i
 	public boolean addUser( ILoginUser user ){
 		boolean found = this.users.contains(user);
 		if( found ) {
-			notifyListeners( new AuthenticationEvent( this, AuthenticationEvents.LOGIN, user ));
+			notifyListeners( new AuthenticationEvent( this, LoginData.Requests.LOGIN, user,0l ));
 			return false;
 		}
 		this.users.add( user );
-		notifyListeners( new AuthenticationEvent( this, AuthenticationEvents.LOGIN, user ));
+		notifyListeners( new AuthenticationEvent( this, LoginData.Requests.LOGIN, user,0l ));
 		return true;
 	}
 
 	public boolean removeUser( ILoginUser user ) {
 		boolean result = this.users.remove( user );
-		notifyListeners( new AuthenticationEvent( this, AuthenticationEvents.LOGOUT, user ));
+		notifyListeners( new AuthenticationEvent( this, LoginData.Requests.LOGOFF, user,0l ));
 		return result;
 	}
 
@@ -73,7 +71,7 @@ public abstract class AbstractLoginProvider extends AbstractPersistencyService i
 	}
 
 	@Override
-	public ILoginUser getLoginUser(long loginId, long token ) {
+	public ILoginUser getLoginUser(String domain, long loginId, long token ) {
 		for( ILoginUser user: this.users) {
 			if( user.getId() == loginId )
 				return user;
@@ -81,19 +79,10 @@ public abstract class AbstractLoginProvider extends AbstractPersistencyService i
 		return null;
 	}
 
+	
 	@Override
-	public Map<Long, String> getUserNames(Collection<Long> userIds) {
-		Map<Long, String> results = new HashMap<>();
-		for( ILoginUser user: this.users) {
-			if( userIds.contains( user.getId()))
-				results.put( user.getId(), user.getUserName());
-		}
-		return results;
-	}
-
-	@Override
-	public void logout(long loginId, long token ) {
-		ILoginUser user = getLoginUser(loginId, token );
-		this.removeUser(user);
+	public boolean logout(String domain, long loginId, long token ) {
+		ILoginUser user = getLoginUser(domain, loginId, token );
+		return this.removeUser(user);
 	}
 }

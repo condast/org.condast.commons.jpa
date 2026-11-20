@@ -12,10 +12,10 @@ Import-Package: javax.persistence;version="[2.0.0,3.0.0)",
  org.condast.commons.service,
  org.osgi.framework;version="1.3.0"
 Bundle-ActivationPolicy: lazy
-Export-Package: org.condast.commons.persistence.clone,
- org.condast.commons.persistence.connector,
- org.condast.commons.persistence.core,
- org.condast.commons.persistence.def,
- org.condast.commons.persistence.service,
- org.condast.commons.persistence.session
+Export-Package: org.condast.commons.jpa.persistence.clone,
+ org.condast.commons.jpa.persistence.connector,
+ org.condast.commons.jpa.persistence.core,
+ org.condast.commons.jpa.persistence.def,
+ org.condast.commons.jpa.persistence.service,
+ org.condast.commons.jpa.persistence.session
 Automatic-Module-Name: org.condast.commons.persistence

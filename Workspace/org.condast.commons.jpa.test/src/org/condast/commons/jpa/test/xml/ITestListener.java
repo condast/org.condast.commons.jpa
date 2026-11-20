@@ -15,7 +15,8 @@ public interface ITestListener<D extends Object> {
 		CREATE,
 		PREPARE,
 		PERFORM,
-		REASONER;
+		REASONER,
+		POST_PROCESS;
 
 		@Override
 		public String toString() {

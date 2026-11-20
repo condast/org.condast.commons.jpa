@@ -8,7 +8,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.condast.commons.jpa</groupId>
 	<artifactId>org.condast.commons.jpa.parent</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>${revision}</version>
 	<packaging>pom</packaging>
 
   	<licenses>
@@ -20,25 +20,62 @@
   	</licenses>
 
 	<properties>
-		<maven.compiler.target>1.8</maven.compiler.target>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<tycho.version>5.0.4</tycho.version>			
-		<bundle-name>org.condast.commons.jpa</bundle-name>
+ 		<maven.compiler.release>22</maven.compiler.release>		
+		<tycho.version>5.0.4</tycho.version>	
+		<rap.version>3.29.0</rap.version>		
+		<bundle.name>org.condast.commons.jpa</bundle.name>
+		<major.version>1.0.0</major.version>
+		<minor.version>SNAPSHOT</minor.version>
+		<revision>${major.version}-${minor.version}</revision>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<build-name>RAP3X</build-name>
+		<build.name>RAP3X</build.name>
 		<generics>P:/GitHub/</generics>
         <maven.build.timestamp.format>yyyy-MM-dd-HHmmss</maven.build.timestamp.format>
-		<project-root>P:/GitHub/${bundle-name}</project-root>
-		<update-site>${project-root}/Workspace/${bundle-name}.update/target/repository/plugins</update-site>
-		<release-dir>P:/Releases/${build-name}/${bundle-name}</release-dir>
+		<project.root>P:/GitHub/${bundle.name}</project.root>
+		<project.workspace>${project.root}/Workspace</project.workspace>
+		<update.site>${project.workspace}/${bundle.name}.update/target/repository/plugins</update.site>
+		<release.dir>P:/Releases/${build.name}/${bundle.name}</release.dir>
+        <p2.update.site>http://localhost:8080/repository/eclipse-updates</p2.update.site>
 	</properties>
 
-	<distributionManagement>
-		<repository>
-			<id>release directory</id>
-			<url>file:${release-dir}/deploy/${bundle-name}</url>
-		</repository>
-	</distributionManagement>
+	<profiles>
+	    <profile>
+	        <id>local-deploy</id>
+			<distributionManagement>
+				<repository>
+		          <id>local-releases</id>
+		          <url>http://localhost:8081/repository/maven-releases/</url>
+		        </repository>
+		        <snapshotRepository>
+		          <id>local-snapshots</id>
+		          <url>http://localhost:8081/repository/maven-snapshots/</url>
+		        </snapshotRepository>
+		        <site>
+		           <id>nexus-eclipse-updates</id>
+		           <url>${p2.update.site}/${bundle.name}/</url>
+		        </site>
+			</distributionManagement>
+	    </profile>
+	
+	    <profile>
+	        <id>cloud-deploy</id>
+	        <distributionManagement>
+	            <repository>
+	                <id>cloud-releases</id>
+	                <url>http://localhost:18081/repository/maven-releases/</url>
+	            </repository>
+	            <snapshotRepository>
+	                <id>cloud-snapshots</id>
+	                <url>http://localhost:18081/repository/maven-snapshots/</url>
+	            </snapshotRepository>
+	            <site>
+		           <id>nexus-eclipse-updates</id>
+		           <url>${p2.update.site}/${bundle.name}/</url>
+		        </site>
+
+	        </distributionManagement>
+	    </profile>
+	</profiles>
 
 	<modules>
 		<module>../org.condast.commons.jpa.target</module>
@@ -48,9 +85,9 @@
 		<module>../org.condast.commons.jpa.ui.na</module>
 		<module>../org.condast.commons.jpa.authentication</module>
 		<module>../org.condast.commons.jpa.authentication.ui</module>
+		<module>../org.condast.commons.jpa.bugzilla</module>
 		<module>../org.condast.commons.jpa.postcode</module>
 		<module>../org.condast.commons.jpa.google.geo</module>
-		<!-- <module>../org.condast.commons.jpa.google.geo.ui</module> -->
 		<module>../org.condast.commons.jpa.test</module>
 		<module>../org.condast.commons.jpa.feature</module>
 		<module>../org.condast.commons.jpa.update</module>
@@ -126,27 +163,6 @@
 			    <includeAllDependencies>false</includeAllDependencies>
 			  </configuration>
 			</plugin>
-			<!--
-			<plugin>
-  				<groupId>org.eclipse.tycho</groupId>
-  				<artifactId>tycho-packaging-plugin</artifactId>
-  				<version>${tycho.version}</version>
-			</plugin>
-	      	<plugin>
-    	  		<groupId>org.eclipse.tycho</groupId>
-	        	<artifactId>tycho-p2-plugin</artifactId>
-		        <version>${tycho.version}</version>
-    		    <executions>
-        			<execution>
-		        	    <id>attach-p2-metadata</id>
-        		    	<phase>package</phase>
-			            <goals>
-    	    				<goal>p2-metadata</goal>
-			            </goals>
-        		   </execution>
-        		</executions>
-	      	</plugin>  
-	      	-->    	
             <plugin>
                	<groupId>org.apache.maven.plugins</groupId>
             	<artifactId>maven-resources-plugin</artifactId>
@@ -160,16 +176,27 @@
        					</goals>
     					<configuration>
         					<overwrite>true</overwrite>
-        					<outputDirectory>${release-dir}/${maven.build.timestamp}</outputDirectory>
+        					<outputDirectory>${release.dir}/${maven.build.timestamp}</outputDirectory>
             					<resources>
                 					<resource>
-                						<directory>${update-site}</directory>
+                						<directory>${update.site}</directory>
                 					</resource>
                 				</resources>
             			</configuration>
        			    </execution>
     			</executions>
            	</plugin>
+           	<plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.12.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>false</autoPublish>
+                    <waitUntil>validated</waitUntil>
+                </configuration>
+            </plugin>		
   		</plugins>
 	</build>
 </project> 

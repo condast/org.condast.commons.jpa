@@ -9,6 +9,9 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.file.Path;
@@ -60,7 +63,7 @@ public abstract class AbstractHttpRequest<R> implements IHttpRequest<R> {
 		this.listeners = new ArrayList<>();
 	}
 
-	protected String getContextPath() {
+	public String getContextPath() {
 		return contextPath;
 	}
 
@@ -85,6 +88,24 @@ public abstract class AbstractHttpRequest<R> implements IHttpRequest<R> {
 		}
 		String path = this.contextPath + "/"+  StringStyler.xmlStyleString( addition );
 		return path;
+	}
+
+	/**
+	 * Set the request and returns the path
+	 * @param request
+	 * @return
+	 * @throws MalformedURLException 
+	 * @throws ProtocolException 
+	 */
+	protected HttpURLConnection getConnection( String path) throws IOException, MalformedURLException, ProtocolException{
+		URI uri = URI.create(path);
+		URL url = uri.toURL();
+		HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+		// optional default is GET
+		con.setRequestMethod(HTTP.GET.name());
+		con.setRequestProperty("User-Agent", USER_AGENT);
+		return con;
 	}
 
 	public Map<String, String> getParameters(){
@@ -128,7 +149,7 @@ public abstract class AbstractHttpRequest<R> implements IHttpRequest<R> {
 		con.setRequestProperty("User-Agent", USER_AGENT);
 
 		//add request header
-		handleResponse( this.contextPath, null, con );
+		handleResponse( this.contextPath, null, con, null );
 	}
 
 	// HTTP GET request
@@ -136,39 +157,28 @@ public abstract class AbstractHttpRequest<R> implements IHttpRequest<R> {
 	 * @see org.condast.commons.http.IHttpRequest#sendGet(java.lang.String, java.util.Map)
 	 */
 	protected void sendGet( R request) throws Exception {
-		String path = setRequest( request );
-		send( HTTP.GET, path );
-	}
-
-	protected void sendGet( R request, Map<String, String> parameters) throws IOException{
 		String url = setRequest( request );
-		String path = toAttributerString( url, parameters );
-		send( HTTP.GET, path, request, null );
+		send( HTTP.GET, url );
 	}
 
 	@Override
-	@Deprecated
-	public void sendGet( String path, Map<String, String> parameters) throws IOException {
-		send( HTTP.GET, path, parameters );
-	}
-
-	protected void sendPost( R request, Map<String, String> parameters, String post) throws IOException  {
+	public void sendGet( R request, Map<String, String> parameters) throws IOException{
 		String url = setRequest( request );
 		String path = toAttributerString( url, parameters );
-		send( HTTP.POST, path, request, post );
+		HttpURLConnection con = getConnection(path);
+		handleResponse( path, request, con, parameters );
+	}
+
+	public void sendPost( R request, Map<String, String> parameters, String post) throws IOException  {
+		String url = setRequest( request );
+		String path = toAttributerString( url, parameters );
+		send( HTTP.POST, path, request, parameters, post );
 	}
 
 	protected void sendPost( R request, Map<String, String> parameters, MimeMediaTypes type, String post) throws IOException  {
 		String url = setRequest( request );
 		String path = toAttributerString( url, parameters );
-		send( HTTP.POST, path, request, type, post );
-	}
-
-	@Override
-	@Deprecated
-	public void sendPost( String url, Map<String, String> args, String post ) throws IOException {
-		String request = toAttributerString( url, args );
-		send( HTTP.POST, request, args, post );
+		send( HTTP.POST, path, request, parameters, type, post );
 	}
 
 	protected void sendPut( R request) throws Exception {
@@ -177,50 +187,31 @@ public abstract class AbstractHttpRequest<R> implements IHttpRequest<R> {
 	}
 
 	@Override
-	@Deprecated
-	public void sendPut( String url, Map<String, String> args, String post) throws IOException {
-		send( HTTP.PUT, url, args, post );
-	}
-
-	public void sendPut( R request, Map<String, String> args, String post) throws IOException{
-		String url = setRequest( request );
-		String path = toAttributerString( url, args );
-		send( HTTP.PUT, path, request, post );
-	}
-
-	protected void sendDelete( R request, Map<String, String> parameters, String post) throws IOException {
+	public void sendPut( R request, Map<String, String> parameters, String post) throws IOException{
 		String url = setRequest( request );
 		String path = toAttributerString( url, parameters );
-		send( HTTP.DELETE, path, request, post );
+		send( HTTP.PUT, path, request, null, post );
 	}
 
-	@Deprecated
-	public void sendDelete( String url, Map<String, String> args) throws IOException {
-		send( HTTP.DELETE, url, args, null );
+	@Override
+	public void sendDelete( R request, Map<String, String> parameters) throws IOException {
+		String url = setRequest( request );
+		String path = toAttributerString( url, parameters );
+		send( HTTP.DELETE, path, request, parameters, null );
 	}
 
 	protected void send( HTTP http, String url ) throws IOException {
 		send( http, url );
 	}
 
-	@Deprecated
-	protected void send( HTTP http, String request, Map<String, String> args ) throws IOException{
-		send( http, request, args, null );
-	}
-
-	@Deprecated
-	protected void send( HTTP http, String url, Map<String, String> args, String post ) throws IOException  {
-		send( http, url, args, post );
-	}
-
-	protected void send( HTTP http, String url, R request, String post ) throws IOException{
-		send( http, url, request, MimeMediaTypes.JSON, post );
+	protected void send( HTTP http, String url, R request, Map<String, String> parameters, String post ) throws IOException{
+		send( http, url, request, parameters, MimeMediaTypes.JSON, post );
 	}
 	
-	protected void send( HTTP http, String url, R request, MimeMediaTypes type, String post ) throws IOException{
+	protected void send( HTTP http, String url, R request, Map<String, String> parameters, MimeMediaTypes type, String post) throws IOException{
 		String charset = "UTF-8";
-		Path path = Paths.get(url);
-		URL obj = path.toUri().toURL();
+		URI uri = URI.create(url);
+		URL obj = uri.toURL();
 		HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
 
 		//add request header
@@ -249,7 +240,7 @@ public abstract class AbstractHttpRequest<R> implements IHttpRequest<R> {
 			break;
 
 		}
-		handleResponse( url, request, conn);
+		handleResponse( url, request, conn, parameters);
 		int responseCode = conn.getResponseCode();
 		if( responseCode != IHttpRequest.HttpStatus.OK.getStatus())
 			logger.fine( request + "\n\tResponse Code : " + getHttpStatus( responseCode ).name() +
@@ -278,7 +269,7 @@ public abstract class AbstractHttpRequest<R> implements IHttpRequest<R> {
 		responseFailMessage(getClass(), responseCode, event);
 	}
 
-	protected ResponseEvent<R> handleResponse( String url, R request, HttpURLConnection con ){
+	protected ResponseEvent<R> handleResponse( String url, R request, HttpURLConnection con, Map<String, String> parameters ){
 		BufferedReader in = null;
 		String str = null;
 		ResponseEvent<R> event = null;
@@ -287,17 +278,18 @@ public abstract class AbstractHttpRequest<R> implements IHttpRequest<R> {
 			if( responseCode == Response.Status.OK.getStatusCode()) {
 				in = new BufferedReader(
 						new InputStreamReader(con.getInputStream()));
-				event = new ResponseEvent<>( this, url, request, in );
+				event = new ResponseEvent<>( this, url, request, parameters, in );
 				str = onHandleResponse( event );
 			}else {
-				event = new ResponseEvent<>( this, url, request, str, responseCode );
+				str = con.getHeaderField("ETag");
+				event = new ResponseEvent<>( this, url, request, parameters, str, responseCode );
 				onHandleResponseFail( getHttpStatus(responseCode), event );
 			}
 			notifyListeners( event);
 		}
 		catch( Exception ex ){
 			logger.warning( S_ERR_RESPONSE + request);
-			//ex.printStackTrace();
+			ex.printStackTrace();
 		}
 		finally{
 			IOUtils.closeReader( in );
@@ -339,8 +331,9 @@ public abstract class AbstractHttpRequest<R> implements IHttpRequest<R> {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(S_ERR_RESPONSE_FAIL1 + event.getRequest() + "): ");
 		buffer.append( responseCode + "-> " + HttpStatus.getMessage( responseCode));
-		buffer.append("\n\t\t: " );
+		buffer.append("\n\t " );
 		buffer.append(event.getURL());
+		buffer.append( "\n\tmessage -> " + event.getResponse());
 		logger.warning( buffer.toString());
 	}
 

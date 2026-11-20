@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.condast.commons.strings.StringUtils;
-import org.condast.js.commons.session.AbstractSessionHandler;
 import org.condast.js.commons.session.ISessionListener;
-import org.condast.js.commons.session.SessionEvent;
-import org.eclipse.swt.widgets.Display;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.ServiceScope;
 
@@ -63,24 +60,6 @@ public class GeoCoderServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		super.doPost(req, resp);
-	}
-
-	private class GeocoderSession extends AbstractSessionHandler<Map<String, String>> {
-
-		public  GeocoderSession( Display display) {
-			super( display);
-		}
-
-		@Override
-		public void dispose() {
-			super.dispose();
-		}
-
-		@Override
-		protected void onHandleSession(SessionEvent<Map<String, String>> sevent) {
-			// TODO Auto-generated method stub
-			
-		}
 	}
 
 }

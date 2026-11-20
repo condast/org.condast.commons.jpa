@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.EventObject;
+import java.util.Map;
 
 import javax.ws.rs.core.Response;
 
@@ -13,21 +14,24 @@ public class ResponseEvent<R extends Object> extends EventObject {
 	private String url;
 
 	private R request;
+	private Map<String, String> parameters;
+	
 	private String response;
 
 	private int responseCode;
 
-	public ResponseEvent(Object source, String url, R request, Reader reader ) {
-		this( source, url, request, printResponse(reader), Response.Status.OK.getStatusCode() );
+	public ResponseEvent(Object source, String url, R request, Map<String, String> parameters, Reader reader ) {
+		this( source, url, request, parameters, printResponse(reader), Response.Status.OK.getStatusCode() );
 	}
 
-	public ResponseEvent(Object source, String url, R request, Reader reader, int responseCode ) {
-		this( source, url, request, printResponse(reader), responseCode );
+	public ResponseEvent(Object source, String url, R request, Map<String, String> parameters, Reader reader, int responseCode ) {
+		this( source, url, request, parameters, printResponse(reader), responseCode );
 	}
 
-	public ResponseEvent(Object source, String url, R request, String response, int responseCode ) {
+	public ResponseEvent(Object source, String url, R request, Map<String, String> parameters, String response, int responseCode ) {
 		super(source);
 		this.request = request;
+		this.parameters = parameters;
 		this.response = response;
 		this.url = url;
 		this.responseCode = responseCode;
@@ -39,6 +43,10 @@ public class ResponseEvent<R extends Object> extends EventObject {
 
 	public R getRequest() {
 		return request;
+	}
+
+	public Map<String, String> getParameters() {
+		return parameters;
 	}
 
 	public String getResponse() {

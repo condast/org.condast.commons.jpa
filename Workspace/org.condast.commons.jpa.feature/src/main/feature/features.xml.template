@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><features name="${project.groupId}-${major.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.4.0">
+    <feature name="org.condast.commons.jpa" version="${project.version}">
+        <bundle>mvn:${project.groupId}/org.condast.commons.jpa.authentication/${project.version}</bundle>
+        <bundle>mvn:${project.groupId}/org.condast.commons.jpa.authentication.ui/${project.version}</bundle>
+        <bundle>mvn:${project.groupId}/org.condast.commons.jpa.google.geo/${project.version}</bundle>
+        <bundle>mvn:${project.groupId}/org.condast.commons.jpa.na/${project.version}</bundle>
+        <bundle>mvn:${project.groupId}/org.condast.commons.jpa.persistence/${project.version}</bundle>
+        <bundle>mvn:${project.groupId}/org.condast.commons.jpa.postcode/${project.version}</bundle>
+        <bundle>mvn:${project.groupId}/org.condast.commons.jpa.ui.na/${project.version}</bundle>
+        <bundle>mvn:${project.groupId}/org.condast.commons.jpa/${project.version}</bundle>
+        <bundle>mvn:${project.groupId}/org.condast.commons.jpa.bugzilla/${project.version}</bundle>
+    </feature>
+</features>

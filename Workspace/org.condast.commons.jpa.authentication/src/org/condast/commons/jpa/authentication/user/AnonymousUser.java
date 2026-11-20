@@ -13,5 +13,15 @@ public class AnonymousUser extends AbstractLoginUser {
 		super(userName, password, S_EMAIL);
 	}
 
+	@Override
+	public boolean isConfirmed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
+	@Override
+	public void setConfirmed(boolean confirmed) {
+		// TODO Auto-generated method stub
+		
+	}
 }

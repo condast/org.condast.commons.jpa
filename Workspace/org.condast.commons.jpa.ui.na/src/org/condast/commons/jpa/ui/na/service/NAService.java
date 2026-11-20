@@ -3,8 +3,8 @@ package org.condast.commons.jpa.ui.na.service;
 import org.condast.commons.jpa.na.model.IApplication;
 import org.condast.commons.jpa.na.model.IApplicationPerson;
 import org.condast.commons.jpa.na.service.INAService;
-import org.condast.commons.persistence.service.AbstractPersistencyService;
-import org.condast.commons.persistence.service.IPersistencyController;
+import org.condast.commons.jpa.persistence.service.AbstractPersistencyService;
+import org.condast.commons.jpa.persistence.service.IPersistencyController;
 
 public class NAService extends AbstractPersistencyService implements INAService {
 

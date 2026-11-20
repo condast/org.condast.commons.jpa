@@ -14,34 +14,36 @@ package org.condast.commons.jpa.authentication.core;
 import java.util.EventObject;
 
 import org.condast.commons.data.user.ILoginUser;
-import org.condast.commons.jpa.authentication.core.IAuthenticationListener.AuthenticationEvents;
+import org.condast.commons.data.util.LoginData;
 
 public class AuthenticationEvent extends EventObject {
 	private static final long serialVersionUID = 1L;
 
-	private AuthenticationEvents event;
+	private LoginData.Requests event;
 
 	private ILoginUser user;
 
 	private String password;
+	
+	private long token;
 
-	public AuthenticationEvent(Object arg0, AuthenticationEvents event) {
+	public AuthenticationEvent(Object arg0, LoginData.Requests event, long token ) {
+		this(arg0, event, null, null, token );
+	}
+
+	public AuthenticationEvent(Object arg0, LoginData.Requests event, ILoginUser user, long token ) {
+		this(arg0, event, user, null, token );
+	}
+
+	public AuthenticationEvent(Object arg0, LoginData.Requests event, ILoginUser user, String password, long token ) {
 		super(arg0);
 		this.event = event;
-	}
-
-	public AuthenticationEvent(Object arg0, AuthenticationEvents event, ILoginUser user ) {
-		this(arg0, event );
-		this.user = user;
-	}
-
-	public AuthenticationEvent(Object arg0, AuthenticationEvents event, ILoginUser user, String password ) {
-		this(arg0, event );
 		this.user = user;
 		this.password = password;
+		this.token = token;
 	}
 
-	public AuthenticationEvents getEvent(){
+	public LoginData.Requests getEvent(){
 		return this.event;
 	}
 
@@ -51,5 +53,9 @@ public class AuthenticationEvent extends EventObject {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public long getToken() {
+		return token;
 	}
 }

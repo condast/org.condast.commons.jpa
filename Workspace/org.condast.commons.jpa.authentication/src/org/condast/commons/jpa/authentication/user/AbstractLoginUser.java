@@ -3,11 +3,14 @@ package org.condast.commons.jpa.authentication.user;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
+import java.util.Set;
 
 import org.condast.commons.data.latlng.LatLng;
+import org.condast.commons.data.user.IAdmin;
 import org.condast.commons.data.user.ILoginUser;
 import org.condast.commons.date.DateUtils;
 
+@Deprecated
 public abstract class AbstractLoginUser implements ILoginUser {
 
 	private long id;
@@ -29,8 +32,6 @@ public abstract class AbstractLoginUser implements ILoginUser {
 	 */
 	private transient long security;
 	
-	private transient boolean confirmed;
-
 	private transient boolean registered;
 
 	protected AbstractLoginUser( String userName, String password, String email ) {
@@ -43,7 +44,6 @@ public abstract class AbstractLoginUser implements ILoginUser {
 		Date now = Calendar.getInstance().getTime();
 		this.createDate = now;
 		this.updateDate = now;
-		this.confirmed = false;
 		this.registered = false;
 	}
 
@@ -53,7 +53,6 @@ public abstract class AbstractLoginUser implements ILoginUser {
 		Date now = Calendar.getInstance().getTime();
 		this.createDate = now;
 		this.updateDate = now;
-		this.confirmed = false;
 		this.registered = false;
 	}
 
@@ -86,16 +85,6 @@ public abstract class AbstractLoginUser implements ILoginUser {
 		this.password = password;
 	}
 
-	@Override
-	public boolean isConfirmed() {
-		return confirmed;
-	}
-
-	@Override
-	public void setConfirmed(boolean confirmed) {
-		this.confirmed = confirmed;
-	}
-
 	/* (non-Javadoc)
 	 * @see org.fgf.animal.count.authentication.model.ILoginUser#getEmail()
 	 */
@@ -113,13 +102,14 @@ public abstract class AbstractLoginUser implements ILoginUser {
 	 * @return
 	 */
 	@Override
-	public boolean isRegistered() {
+	public boolean isRegistered( String domain ) {
 		return registered;
 	}
 
 	@Override
-	public void setRegistered( boolean registered) {
+	public boolean setRegistered( String domain, boolean registered, long confirmation ) {
 		this.registered = registered;
+		return registered;
 	}
 
 	@Override
@@ -130,6 +120,19 @@ public abstract class AbstractLoginUser implements ILoginUser {
 	@Override
 	public void setLocation( double latitude, double longitude) {
 		this.location = new LatLng( this.userName, latitude, longitude);
+	}
+
+	
+	@Override
+	public long getConfirmation() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setConfirmation(long confirmation) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -161,6 +164,30 @@ public abstract class AbstractLoginUser implements ILoginUser {
 	public void setSecurity(long security) {
 		this.security = security;
 	}
+
+	@Override
+	public boolean checkSecurity(long security) {
+		return this.security == security;
+	}
+
+	@Override
+	public void addAdmin(IAdmin admin) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeAdmin(IAdmin admin) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Set<IAdmin> getAdmins(String domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	@Override
 	public void update() {

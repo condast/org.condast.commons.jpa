@@ -101,7 +101,7 @@ public class HttpPerformer<D,R extends Object> extends AbstractPerformer<D,R> {
 		return null;
 	}
 
-	@SuppressWarnings({ "unchecked", "deprecation" })
+	@SuppressWarnings({ "unchecked" })
 	@Override
 	protected void onPerform(ITestEvent<D,R> event, int index) {
 		WebClient client = new WebClient( context );
@@ -185,10 +185,33 @@ class WebClient extends AbstractHttpRequest<HttpPerformer.Requests>{
 		super(context);
 	}
 
-	@Override
-	public String getContextPath() {
-		return super.getContextPath();
+
+	
+	public void sendGet(String path, Map<String, String> parameters) {
+		
 	}
+
+
+
+	public void sendPut(String path, Map<String, String> parameters, String data) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	public void sendDelete(String path, Map<String, String> parameters) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	public void sendPost(String path, Map<String, String> parameters, String data) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 	@Override

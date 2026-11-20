@@ -6,11 +6,11 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.condast.commons.data.user.ILoginUser;
-import org.condast.commons.jpa.authentication.core.IAuthenticationListener.AuthenticationEvents;
-import org.condast.commons.persistence.service.AbstractPersistencyService;
-import org.condast.commons.persistence.service.IPersistenceService;
+import org.condast.commons.data.util.LoginData;
+import org.condast.commons.data.user.IAdmin;
+import org.condast.commons.jpa.persistence.service.AbstractPersistencyService;
 
-public abstract class AbstractAuthenticationService<U extends ILoginUser> extends AbstractPersistencyService implements ILoginProvider, IPersistenceService{
+public abstract class AbstractAuthenticationService<U extends ILoginUser> extends AbstractPersistencyService implements ILoginProvider{
 
 	private  Set<U> users;
 
@@ -44,17 +44,17 @@ public abstract class AbstractAuthenticationService<U extends ILoginUser> extend
 	public boolean addUser( U user ){
 		boolean found = this.users.contains(user);
 		if( found ) {
-			notifyListeners( new AuthenticationEvent( this, AuthenticationEvents.LOGIN, user ));
+			notifyListeners( new AuthenticationEvent( this, LoginData.Requests.LOGIN, user, 0l ));
 			return false;
 		}
 		this.users.add( user );
-		notifyListeners( new AuthenticationEvent( this, AuthenticationEvents.LOGIN, user ));
+		notifyListeners( new AuthenticationEvent( this, LoginData.Requests.LOGIN, user, 0l ));
 		return true;
 	}
 
 	public boolean removeUser( U user ) {
 		boolean result = this.users.remove( user );
-		notifyListeners( new AuthenticationEvent( this, AuthenticationEvents.LOGOUT, user ));
+		notifyListeners( new AuthenticationEvent( this, LoginData.Requests.LOGOFF, user,0l ));
 		return result;
 	}
 
@@ -76,17 +76,22 @@ public abstract class AbstractAuthenticationService<U extends ILoginUser> extend
 	}
 
 	@Override
-	public U getLoginUser(long loginId, long token ) {
+	public U getLoginUser(String domain, long loginId, long token ) {
 		for( U user: this.users) {
-			if( user.getId() == loginId )
-				return user;
+			if( user.getId() == loginId ) {
+				Set<IAdmin> admins = user.getAdmins(domain);
+				for( IAdmin a : admins) {
+					if( a.getDomain().equals(domain))
+						return user;
+				}
+			}
 		}
 		return null;
 	}
 
 	@Override
-	public void logout(long loginId, long token ) {
-		U user = getLoginUser(loginId, token );
-		this.removeUser(user);
+	public boolean logout(String domain, long loginId, long token ) {
+		U user = getLoginUser(domain, loginId, token );
+		return ( user == null )? false: this.removeUser(user);
 	}
 }

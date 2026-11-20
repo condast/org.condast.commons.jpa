@@ -44,4 +44,12 @@
          id="org.condast.commons.jpa.ui.na"
          version="0.0.0"/>
 
+   <plugin
+         id="org.condast.commons.jpa"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.condast.commons.jpa.bugzilla"
+         version="0.0.0"/>
+
 </feature>

@@ -2,30 +2,32 @@ package org.condast.commons.jpa.authentication.core;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
+import org.condast.commons.Utils;
 import org.condast.commons.data.user.IAdmin;
 import org.condast.commons.data.user.ILoginUser;
+import org.condast.commons.jpa.authentication.utils.AuthenticationUtils;
 
 /**
  * The volunteer who has access to the data
  * @author Kees
  *
  */
+@Deprecated
 public abstract class AbstractLoginClient implements ILoginProvider{
-
-	private ILoginProvider factory;
 
 	private Collection<IAuthenticationListener> alisteners;
 
-	private Logger logger = Logger.getLogger( this.getClass().getName());
-
-	private IAuthenticationListener listener = e-> onNotifyAuthenticationEvent( e );
+	private String domain;
+	private Map<Long, ILoginUser> users;
 	
-	protected AbstractLoginClient() {
+	protected AbstractLoginClient( String domain) {
 		super();
+		this.domain = domain;
 		alisteners = new ArrayList<>();
+		this.users = new HashMap<>();
 	}
 
 	@Override
@@ -38,81 +40,72 @@ public abstract class AbstractLoginClient implements ILoginProvider{
 		this.alisteners.remove(listener);
 	}
 
-	private void onNotifyAuthenticationEvent(AuthenticationEvent e) {
-		for( IAuthenticationListener listener: this.alisteners)
-			listener.notifyLoginChanged(e);
+	public boolean addUser( ILoginUser user) {
+		ILoginUser result = this.users.put(user.getId(), user);
+		user.setSecurity(AuthenticationUtils.generateSecurityCode(user));
+		return (result != null);
 	}
 
-	public void setLoginProvider( ILoginProvider factory ){
-		logger.info("Adding factory: " + factory.getClass().getName());
-		this.factory = factory;
-		this.factory.addAuthenticationListener(listener);
+	public boolean removeUser( ILoginUser user) {
+		ILoginUser result =this.users.remove(user.getId());
+		return (result != null);
 	}
 
-	public void unsetLoginProvider( ILoginProvider factory ){
-		if( this.factory == null )
-			return;
-		this.factory.removeAuthenticationListener(listener);
-		this.factory = null;
-	}
-
-	public ILoginProvider getLoginProvider() {
-		return factory;
+	public ILoginUser getUser(long userId) {
+		return this.users.get(userId);
 	}
 
 	@Override
 	public boolean isRegistered(long loginId) {
-		if( this.factory == null )
-			return false;
-		return factory.isRegistered(loginId);
-	}
-
-	public boolean isRegistered(long loginId, long security ) {
-		if( this.factory == null )
-			return false;
-		ILoginUser user = factory.getLoginUser(loginId, security);
-		return (user != null );
+		ILoginUser user = this.users.get(loginId );
+		return (user != null ) && ( user.isRegistered( domain ));
 	}
 
 	@Override
 	public boolean isLoggedIn(long loginId, long security) {
-		if( this.factory == null )
+		ILoginUser user = this.users.get(loginId );
+		return ( user == null )? false: (user.getSecurity()==security);
+	}
+
+	public boolean isLoggedIn(long userId) {
+		ILoginUser user = this.users.get(userId );
+		return ( user != null );
+	}
+
+	@Override
+	public ILoginUser getLoginUser(String domain, long loginId, long security ) {
+		ILoginUser user = this.users.get(loginId );
+		if(( user == null ) || !user.checkSecurity(security))
+			return null;
+		IAdmin admin = getAdmin(domain, user);
+		return (admin != null )? user: null;
+	}
+
+	@Override
+	public boolean hasLoginUser( String domain, String userName, long security ) {
+		ILoginUser user = getLoginUser(domain, security, security);
+		if( user == null )
 			return false;
-		return factory.isLoggedIn(loginId, security);
+		IAdmin admin = getAdmin(domain, user);
+		return ( admin != null );
 	}
 
 	@Override
-	public ILoginUser getLoginUser(long loginId, long security ) {
-		if( this.factory == null )
-			return null;
-		return factory.getLoginUser(loginId, security);
+	public IAdmin getAdmin(String domain, ILoginUser user) {
+		Collection<IAdmin> admins = user.getAdmins(domain);
+		return Utils.assertNull(admins)?null: admins.iterator().next();
 	}
 
 	@Override
-	public boolean hasLoginUser( String userName, long security ) {
-		return ( factory == null )? false: factory.hasLoginUser(userName, security);
+	public boolean logout(String doamin, long loginId, long security ) {
+		this.users.remove( loginId);
+		return !this.users.containsKey(loginId );
 	}
 
 	@Override
-	public IAdmin getAdmin(ILoginUser user) {
-		if( this.factory == null )
-			return null;
-		return factory.getAdmin(user);
-	}
-
-	@Override
-	public Map<Long, String> getUserNames(Collection<Long> userIds) {
-		return factory.getUserNames(userIds);
-	}
-
-	@Override
-	public void logout(long loginId, long security ) {
-		factory.logout(loginId, security);
-	}
-
-	@Override
-	public void logout( ILoginUser user ) {
-		factory.logout(user.getId(), user.getSecurity());
+	public boolean logout(String doman,  ILoginUser user ) {
+		this.users.remove(user.getId());
+		return !this.users.containsValue( user );
 	}
 
 	public void dispose(){

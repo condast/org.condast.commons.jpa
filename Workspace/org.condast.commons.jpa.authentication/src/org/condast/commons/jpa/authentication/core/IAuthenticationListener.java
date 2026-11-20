@@ -11,21 +11,7 @@
  *******************************************************************************/
 package org.condast.commons.jpa.authentication.core;
 
-import org.condast.commons.jpa.authentication.utils.StringStyler;
-
 public interface IAuthenticationListener{
-
-	public enum AuthenticationEvents{
-		CLEAR,
-		REGISTER,
-		LOGIN,
-		LOGOUT;
-
-		@Override
-		public String toString() {
-			return StringStyler.prettyString( super.toString());
-		}
-	}
 
 	public void notifyLoginChanged( AuthenticationEvent event );
 }

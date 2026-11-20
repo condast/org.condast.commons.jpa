@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 import org.condast.commons.data.user.ILoginUser;
-import org.condast.commons.persistence.core.ISessionStoreFactory;
+import org.condast.commons.jpa.persistence.core.ISessionStoreFactory;
 
 public class DefaultSessionStore<D extends Object> {
 

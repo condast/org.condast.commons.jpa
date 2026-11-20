@@ -97,16 +97,16 @@ public interface IHttpRequest<R extends Object> {
 	void removeListener(IHttpClientListener<R> listener);
 
 	// HTTP GET request
-	void sendGet(String path, Map<String, String> parameters) throws Exception;
+	void sendGet(R request, Map<String, String> parameters) throws Exception;
 
 	// HTTP POST request
-	void sendPost(String url, Map<String, String> args, String data) throws Exception;
+	void sendPost(R request, Map<String, String> parameters, String data) throws Exception;
 
 	// HTTP PUT request
-	void sendPut(String url, Map<String, String> args, String data) throws Exception;
+	void sendPut(R request, Map<String, String> parameters, String data) throws Exception;
 
 	// HTTP DELETE request
-	void sendDelete(String url, Map<String, String> args) throws Exception;
+	void sendDelete(R request, Map<String, String> parameters) throws Exception;
 
 
 }

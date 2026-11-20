@@ -6,15 +6,6 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicCredentialsProvider;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.condast.commons.strings.PostCodeUtils;
 import org.condast.commons.strings.StringUtils;
 
@@ -26,6 +17,7 @@ public class PostCodeParser {
 
 	@SuppressWarnings("unchecked")
 	public static Map<String, String> findAddresses( String postcode, int number, String numberExtension ) throws Exception{
+		/*
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
 		credsProvider.setCredentials( AuthScope.ANY, new UsernamePasswordCredentials( S_API_KEY, S_SECRET_KEY ));
 		
@@ -36,9 +28,10 @@ public class PostCodeParser {
 			completedUri += "/" + numberExtension.replace(" ", "" );
 		HttpGet httpget = new HttpGet( completedUri );
 		CloseableHttpResponse response = httpclient.execute( httpget );
+
 		Map<String, String> obj = null;
 		try {
-		    HttpEntity entity1 = response.getEntity();
+		    //HttpEntity entity1 = null;//response.getEntity();
 		    Gson gson = new Gson();
             BufferedReader reader = new BufferedReader(new InputStreamReader( entity1.getContent()));
             obj = gson.fromJson(reader, HashMap.class );
@@ -46,9 +39,10 @@ public class PostCodeParser {
 		catch( Exception ex ){
 			ex.printStackTrace();
 		} finally {
-		    response.close();
+		    //response.close();
 		    System.out.println( obj.toString() );
 		}
+				*/
 		return null;//obj;
 	}
 	

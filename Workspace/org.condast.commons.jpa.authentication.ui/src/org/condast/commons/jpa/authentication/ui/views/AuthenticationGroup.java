@@ -1,5 +1,7 @@
 package org.condast.commons.jpa.authentication.ui.views;
 
+import java.util.logging.Logger;
+
 import org.condast.commons.data.util.LoginData;
 import org.condast.commons.strings.StringUtils;
 import org.condast.commons.ui.controller.AbstractEntityGroup;
@@ -12,6 +14,7 @@ import org.condast.commons.verification.IVerification;
 import org.condast.commons.verification.IVerification.VerificationTypes;
 import org.condast.js.commons.ui.utils.RWTUtils;
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -29,10 +32,6 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 {
 	private static final long serialVersionUID = 4936423612139257363L;
 
-	public static final String S_LEGAL_VERSION = "/version_1.0/";
-	public static final String S_LEGAL_TERMS_OF_SERVICE = "terms-of-service.html";
-	public static final String S_LEGAL_PRIVACY = "privacy.html";
-
 	private static final String S_LOGIN_DETAILS = "login Details:";
 	private static final String S_NAME = "Name";
 	private static final String S_PASSWORD = "Password";
@@ -40,6 +39,8 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 	private static final String S_EMAIL = "Email";
 	private static final String S_CONFIRM_EMAIL = "Confirm email";
 
+	private static final String S_LBL_ERROR_VARIANT = "label-error-message";
+	
 	private static final String S_NICKNAME_INFORMATION_TIP = "Provide a nickname for this link.";
 	private static final String S_PASSWORD_INFORMATION_TIP = "Provide a password, and confirm this in the field below.";
 	private static final String S_PASSWORD_CONFIRMATION_TIP = "The password and confirmation should be the same.";
@@ -50,6 +51,7 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 	private static final String S_AND_OUR = " and our ";
 	private static final String S_AGREEMENT_2 = "\"> Privacy Policy</a>";
 
+	private static final String S_THEME_GROUP_VARIANT = "rap-entry-group";
 	private static final int DEFAULT_LABEL_SIZE = 115;
 
 	private InputField text_nickname;
@@ -62,16 +64,15 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 	private Link linktos;
 	private Label lbl_andours;
 	private Link linkpriv;
+	
+	private Label errorLabel;
 
 	private Button okButton;
 
 	private AuthenticationGroup container;
 
 	private boolean register;
-
-	private String licensePath;
-	private String privacyPath;
-
+	
 	public AuthenticationGroup(Composite parent, int style) {
 		super(parent, style);
 		this.container = this;
@@ -80,11 +81,14 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 
 	@Override
 	protected void createComposite(Composite parent, int style) {
+		setData(RWT.CUSTOM_VARIANT, S_THEME_GROUP_VARIANT);
 		setLayout( new GridLayout(1, false ));
 
 		setText( S_LOGIN_DETAILS + ": " );
 
 		text_nickname = new InputField(this, SWT.NONE);
+		text_nickname.setLayoutData(new GridData( SWT.FILL, SWT.FILL, true, false));
+		text_nickname.setFocus();
 		text_nickname.setLabel( S_NAME + ": " );
 		text_nickname.setLabelWidth(DEFAULT_LABEL_SIZE);
 		text_nickname.setToolTipText( S_NICKNAME_INFORMATION_TIP );
@@ -94,6 +98,7 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 			@Override
 			public void verifyText(VerifyEvent event) {
 				try {
+					errorLabel.setVisible(false);
 					if( !register)
 						okButton.setEnabled(isFilled());
 					else
@@ -105,9 +110,9 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 		});
 
 		AbstractWidgetVerificationDelegate.setVerificationType( text_nickname, VerificationTypes.NAME );
-		text_nickname.setLayoutData(new GridData( SWT.FILL, SWT.FILL, true, false));
-
+		
 		text_password = new InputField(this, SWT.PASSWORD);
+		text_password.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, false));
 		text_password.setLabel( S_PASSWORD + ": " );
 		text_password.setLabelWidth(DEFAULT_LABEL_SIZE);
 		text_password.setToolTipText(S_PASSWORD_INFORMATION_TIP);
@@ -117,6 +122,7 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 			@Override
 			public void verifyText(VerifyEvent event) {
 				try {
+					errorLabel.setVisible(false);
 					if( !register)
 						okButton.setEnabled(isFilled());
 					else
@@ -129,7 +135,6 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 				}
 			}
 		});
-		text_password.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, false));
 
 		Composite registerComposite = new Composite( this, SWT.NONE);
 		registerComposite.setLayout( new GridLayout(1,false ));
@@ -226,7 +231,6 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 		linktos = new Link( agreementComposite, SWT.NONE );
 		linktos.setVisible(false);
 		linktos.setData( RWT.MARKUP_ENABLED, Boolean.TRUE );
-		linktos.setText( S_HREF + licensePath + S_AGREEMENT_1);
 		linktos.setLayoutData(new GridData( SWT.FILL, SWT.FILL, false, false ));
 		linktos.addSelectionListener( new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
@@ -252,7 +256,6 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 		linkpriv = new Link( agreementComposite, SWT.NONE );
 		linkpriv.setData( RWT.MARKUP_ENABLED, Boolean.TRUE );
 		linkpriv.setVisible(false);
-		linkpriv.setText( S_HREF + privacyPath + S_AGREEMENT_2);
 		linkpriv.setLayoutData(new GridData( SWT.FILL, SWT.FILL, false, false));
 		linkpriv.addSelectionListener( new SelectionAdapter() {
 			private static final long serialVersionUID = 1L;
@@ -270,8 +273,14 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 			}
 		});
 
+		errorLabel = new Label( this, SWT.BORDER );
+		errorLabel.setData(RWT.CUSTOM_VARIANT, S_LBL_ERROR_VARIANT);
+		errorLabel.setVisible(false);
+		errorLabel.setText( " " );
+		errorLabel.setLayoutData(new GridData( SWT.FILL, SWT.FILL ,true, false));
+
 		Composite buttons = new Composite( this, SWT.BORDER|SWT.LEFT_TO_RIGHT);
-		buttons.setLayoutData( new GridData( SWT.FILL, SWT.TOP, true, false));
+		buttons.setLayoutData( new GridData( SWT.FILL, SWT.BOTTOM, true, true));
 		buttons.setLayout(new GridLayout(10, true ));
 		okButton = new Button( buttons, SWT.BORDER);
 		okButton.setText("OK");
@@ -282,12 +291,17 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				LoginData user = new LoginData( text_nickname.getText(), text_password.getText(), text_email.getText(), register );
-				setInput(user, true);
-				notifyInputEdited( new EditEvent<>( this, EditTypes.COMPLETE, user ));
-				super.widgetSelected(e);
+				try {
+					LoginData user = new LoginData( text_nickname.getText(), text_password.getText(), text_email.getText(), register );
+					setInput(user, true);
+					notifyInputEdited( new EditEvent<>( this, EditTypes.COMPLETE, user ));
+					super.widgetSelected(e);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
+
 		Link registerLink = new Link( buttons, SWT.NONE);
 		registerLink.setData( RWT.MARKUP_ENABLED, Boolean.TRUE );
 		registerLink.setText("<a>Register</a>");
@@ -300,6 +314,7 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 				try {
 					register = true;
 					okButton.setEnabled(false);
+					errorLabel.setVisible(false);
 					setConfirmation(register);
 					agreementButton.setEnabled(false);
 					agreementButton.setVisible(register);
@@ -312,7 +327,7 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 				}
 			}
 		});
-		
+
 		Link forgotLink = new Link( buttons, SWT.NONE);
 		forgotLink.setData( RWT.MARKUP_ENABLED, Boolean.TRUE );
 		forgotLink.setText("<a>Forgot Password</a>");
@@ -330,22 +345,42 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 					e1.printStackTrace();
 				}
 			}
+		});	
+		
+		getDisplay().timerExec(1500, new Runnable() {
+
+		    @Override
+		    public void run() {
+		    	 if (okButton.isDisposed() || text_nickname.isDisposed())
+		             return;
+
+		         if (register)
+		             return;
+
+		         boolean filled = !text_nickname.getText().isEmpty();
+
+		         System.out.println("Username filled: " + filled);
+
+		         if (filled)
+		             okButton.setEnabled(true);   
+		    }
 		});
-
-		Composite fill = new Composite( this, SWT.LEFT_TO_RIGHT);
-		fill.setLayoutData( new GridData( SWT.FILL, SWT.FILL, true, true));
 	}
 
-	public void setLicensePath(String licensePath) {
-		this.licensePath = licensePath;
-		linktos.setText( S_HREF + licensePath + S_AGREEMENT_1);
-		linktos.setData(licensePath);
+	public void setErrorText( String error ) {
+		errorLabel.setText(error);
+		errorLabel.setVisible(true);
+	}
+	
+	public String setLicensePath(String path) {
+		linktos.setText(S_HREF +  path + S_AGREEMENT_1);
+		linktos.setData(path);
+		return path;
 	}
 
-	public void setPrivacyPath(String privacyPath) {
-		this.privacyPath = privacyPath;
-		linkpriv.setText( S_HREF + privacyPath + S_AGREEMENT_2);
-		linkpriv.setData(privacyPath);
+	public void setPrivacyPath(String path ) {
+		linkpriv.setText( S_HREF + path + S_AGREEMENT_2);
+		linkpriv.setData(path);
 	}
 
 	public void setConfirmation(boolean confirmation) {
@@ -434,6 +469,14 @@ public class AuthenticationGroup extends AbstractEntityGroup<LoginData>
 		return false;
 	}
 
+	public void emulateClick() {
+		JavaScriptExecutor executor =
+		        RWT.getClient().getService(JavaScriptExecutor.class);
+		Logger logger = Logger.getLogger(this.getClass().getName());
+		logger.info("Emulate click");
+		executor.execute("document.body.click();");
+	}
+	
 	public boolean refresh() {
 		boolean result = isFilled();
 		agreementButton.setEnabled(result);
