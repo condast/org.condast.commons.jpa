@@ -8,7 +8,7 @@ import java.util.Map;
 import org.condast.commons.jpa.na.model.IVocation;
 import org.condast.commons.jpa.na.model.IVocation.Nature;
 import org.condast.commons.jpa.ui.na.NALanguage;
-import org.condast.commons.ui.widgets.combo.AbstractComboComposite;
+import org.condast.js.commons.ui.widgets.combo.AbstractComboComposite;
 import org.eclipse.swt.SWT;
 
 import org.eclipse.swt.widgets.Button;

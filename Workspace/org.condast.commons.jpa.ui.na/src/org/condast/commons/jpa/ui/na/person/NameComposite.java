@@ -11,7 +11,7 @@ import org.condast.commons.strings.StringUtils;
 import org.condast.commons.ui.controller.AbstractEntityComposite;
 import org.condast.commons.ui.controller.EditEvent;
 import org.condast.commons.ui.controller.EditEvent.EditTypes;
-import org.condast.commons.ui.widgets.utils.Controls;
+import org.condast.js.commons.ui.widgets.utils.Controls;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Text;
 

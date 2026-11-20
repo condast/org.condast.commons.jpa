@@ -515,8 +515,6 @@
 		<plugin id="org.glassfish.hk2.locator"/>
 		<plugin id="com.sun.mail.javax.mail.source"/>
 		<plugin id="com.sun.mail.javax.mail"/>
-		<plugin id="org.glassfish.jaxb.runtime.source"/>
-		<plugin id="org.glassfish.jaxb.runtime"/>
 		<plugin id="jakarta.servlet-api"/>
 		<plugin id="jakarta.servlet-api.source"/>
 		<plugin id="wrapped.org.apache.httpcomponents.httpcore.source"/>

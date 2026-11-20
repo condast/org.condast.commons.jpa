@@ -7,7 +7,7 @@ import org.condast.commons.jpa.na.model.Gender;
 import org.condast.commons.jpa.na.model.IProfessional;
 import org.condast.commons.jpa.ui.na.NALanguage;
 import org.condast.commons.strings.StringUtils;
-import org.condast.commons.ui.widgets.combo.AbstractComboComposite;
+import org.condast.js.commons.ui.widgets.combo.AbstractComboComposite;
 import org.eclipse.swt.widgets.Composite;
 
 public class TitleComposite extends AbstractComboComposite<IProfessional, String> {
